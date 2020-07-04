@@ -1,0 +1,106 @@
+<html>
+
+    <head>
+    
+        <title>Update Profile</title>
+        <link rel="stylesheet" href="profileupdate.css">
+         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+      <script src="js/oca.js"></script>
+    
+    </head>
+    
+        <body onload="profileupdate()">
+         
+             <div class="wrapper">
+            
+                 <div class="sidebar">
+            
+                <h2>OCA Project</h2>
+                <ul>
+                     <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
+                    <li><a class="underlineHover" href="javascript:saPage()">Sentiment Analysis</a></li>
+                    <li><a href="#"></a>Change Password</li>
+                    <li><a class="underlineHover" href="javascript:planUsagePage()">Plans Usage</li>
+                    <li><a href="#"></a>Billing Details</li>
+                    <li><a href="#"></a>Plans & Pricing</li>
+                    <li><a href="#"></a>Logout</li>
+                
+                </ul>
+                
+                 </div>
+            
+            <div class="main_content">
+                
+            <div class="header">Welcome to the Profile Update Page</div>
+                
+                <div class="wrapper2">
+                    
+                    <p style="text-align: center; font-size: 27; color: darkblue;">Update Profile</p>
+                    
+                    <div class="form">
+                        
+                        <div class="inputfield">
+                            <label>First Name</label>
+                            <input type="text" id="firstname" class="input" placeholder="Enter first name">
+                        </div>
+                        
+                        <div class="inputfield">
+                            <label>Last Name</label>
+                            <input type="text" id="lastname" class="input" placeholder="Enter last name">
+                        </div>
+                        
+                         <div class="inputfield">
+                            <label>Email</label>
+                            <input type="text" id="email" class="input" placeholder="Enter emaile">
+                            
+                        </div>
+                                               
+                        <div class="inputfield">
+                            <label>Mobile</label>
+                            <input type="number" id="mobile" class="input" placeholder="Enter mobile number">
+                            
+                        </div>
+                        
+                        <div class="inputfield">
+                            <label>Country</label>
+                            <div class="custom_select">
+                                <select id="country">
+                                   <option class="hidden"  selected disabled>Country</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                                    
+                        <div class="inputfield">
+                            <label>Pin Code</label>
+                            <input type="text" id="pincode" class="input" placeholder="Enter pin code">
+                        </div>
+                    
+                        <div class="inputfield">
+                            <input type="submit" value="Update Profile" class="btn-editprofile" onclick="submitUpdateProfile()">
+                        </div>
+                        
+                    </div>
+                    
+                   
+            
+                </div>
+                
+            </div>
+                 
+            </div>
+                 
+             
+            
+            
+          
+            
+            
+            
+            
+            
+        </body>
+    
+</html>

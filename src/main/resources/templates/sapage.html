@@ -1,0 +1,147 @@
+<html>
+
+    <head>
+    
+        <title>SA Page</title>
+        <link rel="stylesheet" href="style2.css">
+         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     
+      <script src="js/oca.js"></script>
+    
+        
+    
+    </head>
+    
+    <body onload="SAPage()">
+    
+        <div class="wrapper">
+            <div class="sidebar">
+            
+                <h2>OCA Project</h2>
+                <ul>
+                   <!--  <li id="subscribeCode"></li> -->
+                    <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
+                    <li><a class="underlineHover" href="javascript:updateprofilePage()">Update Profile</a></li>
+                    <li><a href="#"></a>Change Password</li>
+                    <li><a class="underlineHover" href="javascript:planUsagePage()">Plans Usage</li>
+                    <li><a href="#"></a>Billing Details</li>
+                    <li><a href="#"></a>Plans & Pricing</li>
+                    <li><a href="#"></a>Logout</li>
+                
+                </ul>
+                
+            </div>
+             
+            <div class="main_content">
+               
+                <div class="header">Welcome to the SA Page</div>
+                <div class="info">
+                    <p>Sentiment Analysis</p>
+                    
+                    <div style="width: 400px; 
+                                height: 180px; 
+                                
+                                display: inline-block;
+                                position: fixed;">
+                        
+                   <form>
+                       
+                        <div class="form-group">
+                
+                          <textarea class="form-control rounded-0" id="comment" name="comment" rows="12" cols="55"></textarea>
+                        </div>
+                        
+              
+                    </form>
+                    
+                     <!-- code to add subscriber-code  -->   
+                       <div>
+                        <label for="subscriber_code" >Subscriber Code: <span id="subscribeCode"></span></label>
+                        <!-- <input type="text" id="subscribeCode" name="subscribeCode"/> -->
+                       </div>
+                       <div>
+                        <span id="commentResponse"></span>
+                        
+                        </div>
+                        
+                        <input type="button" class="submit_button" value="Submit" onclick="dashBoard()" style="margin-left: 150px; margin-top: 60px; width: 150px; height: 55px;">
+                        <input type="button" class="submit_button" value="Reset" onclick="reset()" style="margin-left: 150px; margin-top: 60px; width: 150px; height: 55px;">
+                        
+                    </div>
+                    
+                    
+                    
+                    <div style="width: 400px;
+                                height: 180px;
+                                margin-left: 550px;
+                                border: solid 1px #ccc; 
+                                display: inline-block;
+                                position: relative;">
+
+                        <form action="/action_page.html" style="width: 400px; height: 150px; margin-left: 80px; margin-top: 80;">
+                         <label for="myfile">Select a file:</label>
+                         <input type="file" id="myfile" name="myfile"><br><br>
+                        </form>
+                        
+                         <input type="submit" class="upload_button" value="Upload" style="margin-left: 150px; width: 150px; height: 55px;">
+
+                    </div>
+                    
+                   
+                </div>
+                
+                </div>
+        
+            </div>
+    
+    
+    
+    
+    
+    <script>
+    function SAPage()
+    {
+    	var code=sessionStorage.getItem('subs');
+       	document.getElementById("subscribeCode").innerHTML=code;
+    }
+    
+    
+    function dashBoard()
+    {
+     
+    	
+        var message=document.getElementById("comment").value;
+        var subscriptioncode=document.getElementById("subscribeCode").textContent;
+        
+        
+    	const data={review:message};
+    	const jsonData=JSON.stringify(data);
+    	alert(jsonData);
+    	var req=new XMLHttpRequest();
+    	req.open("POST", "/posresult", "true");
+    	req.setRequestHeader("Content-type","application/json");
+    	req.setRequestHeader("subscriber_code",subscriptioncode);
+    	req.send(jsonData);
+    	 req.onreadystatechange=function()
+    	  {
+    		if(req.readyState==4 && req.status==200)
+    		{
+    		  
+    		  var jsonResponse = JSON.parse(req.responseText);
+    		  document.getElementById("commentResponse").innerHTML=jsonResponse["data"];
+    		}
+    	  }
+    	
+    }
+        
+        </script>
+    
+    
+    
+    
+    
+    
+    </body>
+    
+</html>
