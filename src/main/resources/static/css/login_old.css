@@ -41,30 +41,6 @@ h2 {
   padding: 20px;
 }
 
-/*--------------- css for list item in centre align--------------------------*/
-a {
-  color: #92badd;
-  display:inline-block;
-  text-decoration: none;
-  font-weight: 400;
-}
-
-
-select {
-  text-align: center;
-  text-align-last: center;
-}
-option {
-  text-align: center;
- 
-}
-
-
-
-
-
-/*--------------------- css for form ------------------------*/
-
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;

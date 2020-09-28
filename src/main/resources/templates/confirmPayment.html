@@ -2,7 +2,7 @@
 
     <head>
     
-        <title>User Profile</title>
+        <title>Confirm Payment Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,7 +19,7 @@
     
     </head>
 	
-	  <body onload="customerProfile()">
+	  <body onload="confirmPayment()">
          
              <div class="wrapper">
             
@@ -93,19 +93,23 @@
                               <td id="email"></td>
                             </tr>
                             <tr>
-                              <th scope="row">Contact :</th>
-                              <td id="contact"></td>
+                              <th scope="row">Plan :</th>
+                              <td id="planDesc"></td>                              
                             </tr>
                             <tr>
-                              <th scope="row">Country :</th>
-                              <td id="country"></td>                              
+                              <th scope="row">Plan Value :</th>
+                              <td id="planValue"></td>                              
                             </tr>
+                            
+                            
                           </tbody>
                           <!--Table body-->
-                
+                            
                 
                         </table>
                         <!--Table-->
+                        
+                        <input type="button" id="rzp-button1" value="Proceed" onclick="createOrder()">
                       </div>
                      
               </form>
@@ -139,5 +143,58 @@
             
             
         </body>
-    
+        <script>
+           function createOrder()
+           {
+        	   var firstname=sessionStorage.getItem('first_name');
+        	   var lastname=sessionStorage.getItem('last_name');
+        	   var email=sessionStorage.getItem('emailId');
+        	   var planValue=sessionStorage.getItem('planValue');
+        	   var planDesc=sessionStorage.getItem('planDesc');
+        	   var mobile=sessionStorage.getItem('contact');
+        	   
+        	   var student={firstname:firstname, lastname:lastname,email:email,mobile:mobile,planValue:planValue,planDesc:planDesc};
+
+        	   var stujson=JSON.stringify(student);
+        	   var req=new XMLHttpRequest();
+        	   req.open("POST", "/createOrder", "true");
+        		 
+        	   req.setRequestHeader("Content-type","application/json");
+        	 	  
+        	   req.send(stujson);
+        	   req.onreadystatechange=function()
+        	   {
+        		if(req.readyState==4 && req.status==200)
+        		{
+        		  var jsonResponse=req.responseText;
+        		  var obj= JSON.parse(req.responseText);
+        			
+        			for(x in obj){
+        			   if(x == "id")
+        				{
+        				orderId=obj[x];
+        				}
+        				else if(x == "amount")
+    					{
+        					amount=obj[x];
+    					}
+        				else if(x == "currency")
+    					{
+        					currency=obj[x];
+    					}
+        			  }
+        			
+        			sessionStorage.setItem('orderId',orderId);
+        			sessionStorage.setItem('amount',amount);
+        			sessionStorage.setItem('currency',currency);
+        			paymentPage();
+        		 }
+        	   }
+           }
+           
+           function paymentPage()
+           {
+        	   window.location="/paymentPage"
+           }
+        </script>
 </html>

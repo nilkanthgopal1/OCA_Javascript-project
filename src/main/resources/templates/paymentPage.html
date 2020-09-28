@@ -2,7 +2,7 @@
 
     <head>
     
-        <title>User Profile</title>
+        <title>Confirm Payment Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,11 +15,32 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="js/oca.js"></script>
     
-        
+      <script>
+      function paymentInfo()
+      {
+    	  var code=sessionStorage.getItem('subs');
+    	  var orderId=sessionStorage.getItem('orderId');
+		  var amount=sessionStorage.getItem('amount');
+		  var currency=sessionStorage.getItem('currency');
+      	
+		document.getElementById("subscribeCode").innerHTML=code;
+      	document.getElementById("orderId").style.color="blue";
+      	document.getElementById("orderId").innerHTML=orderId;
+      	
+      	document.getElementById("amount").style.color="blue";
+      	document.getElementById("amount").innerHTML=amount;
+      	
+      	document.getElementById("currency").style.color="blue";
+      	document.getElementById("currency").innerHTML=currency;
+      	
+      	
+      }
+
+      </script>
     
     </head>
 	
-	  <body onload="customerProfile()">
+	  <body onload="paymentInfo()">
          
              <div class="wrapper">
             
@@ -79,33 +100,28 @@
                            
                            
                             <tr>
-                              <th scope="row">First Name :</th>
-                              <td id="firstName"></td>
+                              <th scope="row">Order Id :</th>
+                              <td id="orderId"></td>
                               
                             </tr>
                             <tr>
-                              <th scope="row">Last Name :</th>
-                              <td id="lastName"></td>
+                              <th scope="row">Amount :</th>
+                              <td id="amount"></td>
                               
                             </tr>
                             <tr>
-                              <th scope="row">Email :</th>
-                              <td id="email"></td>
+                              <th scope="row">Currency :</th>
+                              <td id="currency"></td>
                             </tr>
-                            <tr>
-                              <th scope="row">Contact :</th>
-                              <td id="contact"></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Country :</th>
-                              <td id="country"></td>                              
-                            </tr>
+                            
                           </tbody>
                           <!--Table body-->
-                
+                            
                 
                         </table>
                         <!--Table-->
+                        
+                        <input type="button" id="rzp-button1" value="Pay Now">
                       </div>
                      
               </form>
@@ -139,5 +155,49 @@
             
             
         </body>
-    
+      
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+       
+var options = {
+    "key": "rzp_test_4dUEbMGrbz8SHm", // Enter the Key ID generated from the Dashboard
+    "amount": sessionStorage.getItem('planValue'), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": sessionStorage.getItem('orderId'), //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert("Payment Id = "+response.razorpay_payment_id);
+        alert("Order Id = "+response.razorpay_order_id);
+        alert("Signature = "+response.razorpay_signature);
+        sessionStorage.setItem('paymentId',response.razorpay_payment_id);
+        callSuccessPage();
+    },
+    "prefill": {
+    	"name": sessionStorage.getItem('first_name'),
+        "email":sessionStorage.getItem('emailId'),
+        "contact": sessionStorage.getItem('contact')
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#F37254"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+	var email=sessionStorage.getItem('emailId');
+    rzp1.open();
+    e.preventDefault();
+}
+
+function callSuccessPage()
+{
+	window.location="/successPage"
+}
+</script>
+ 
 </html>

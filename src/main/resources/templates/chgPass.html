@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forgot Password</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="static/css/bootstrap.css">
+        <link rel="stylesheet" href="static/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="static/css/login.css">  
+      <script src="static/js/jquery-3.5.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    
+      <script src="static/js/oca.js"></script>
+    </head>
+    <body>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+          
+              <!-- Icon -->
+              <div class="fadeIn first">
+                <img src="static/image/login.svg" id="icon" alt="User Icon" />
+              </div>
+          
+              <!-- Login Form -->
+              <form>
+                
+				<input type="password" id="pass" class="fadeIn second" placeholder="Enter new password" autocomplete="off">
+                <input type="password" id="confpass" class="fadeIn second" placeholder="Confirm new password" autocomplete="off">
+               
+                <input type="button" id="PassBtn" class="fadeIn fourth" value="Submit" onclick="chgPass()">
+                 <br>
+                <span id="passwordMsg"></span>
+				<br>
+              </form>
+          
+              <!-- Remind Passowrd -->
+              <div id="formFooter">
+                <div class="md-col-2">
+				<a class="underlineHover" href="/login">Login</a>
+              </div>
+             
+            </div>
+            </div>
+          </div>
+    </body>
+ </html>           

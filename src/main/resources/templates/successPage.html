@@ -2,7 +2,7 @@
 
     <head>
     
-        <title>User Profile</title>
+        <title>Confirm Payment Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,11 +15,10 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="js/oca.js"></script>
     
-        
-    
+     
     </head>
 	
-	  <body onload="customerProfile()">
+	  <body onload="paymentInfo()">
          
              <div class="wrapper">
             
@@ -52,92 +51,56 @@
                 <div id="formContent">
               <!-- Tabs Titles -->
           
-              <!-- Icon image -->
-              <div class="fadeIn first">
-                <img src="image/login.svg" id="icon" alt="User Icon" />
-              </div>
-          
+            
               <!-- Registration Form -->
               <form>
 			  
-			   <table class="table table-striped w-auto">
-
-                    <div class="table-responsive text-nowrap">
-                        <!--Table-->
-                        <table class="table table-striped">
-                
-                          <!--Table head-->
-                          <thead>
-                            <tr>
+			        <div>
+			              <h5>Payment Successful </h5><br><div><b>Transaction Id: </b><span id="message"></span></div> 
+			              <br><div><b>Amount: </b><span id="amount"></span></div>
+			              
+			              <!-- <table>
+			               <tbody>
+			                 <tr>
+                              <th scope="row">Transaction Id is:</th>
+                              <td id="message"></td>
+                              </tr>
                               
-                            </tr>
-                          </thead>
-                          <!--Table head-->
-                
-                          <!--Table body-->
-                          <tbody>
-                           
-                           
-                            <tr>
-                              <th scope="row">First Name :</th>
-                              <td id="firstName"></td>
-                              
-                            </tr>
-                            <tr>
-                              <th scope="row">Last Name :</th>
-                              <td id="lastName"></td>
-                              
-                            </tr>
-                            <tr>
-                              <th scope="row">Email :</th>
-                              <td id="email"></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Contact :</th>
-                              <td id="contact"></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Country :</th>
-                              <td id="country"></td>                              
-                            </tr>
-                          </tbody>
-                          <!--Table body-->
-                
-                
-                        </table>
-                        <!--Table-->
-                      </div>
+                              <tr>
+                              <th scope="row">Amount:</th>
+                              <td id="amount"></td>
+                              </tr>
+			               </tbody>
+			              </table>  -->
+			        </div>
+			        <br>
+			        <div>
+                       <a class="underlineHover" href="javascript:planusage()">Click here to view your updated Plan details</a>
+                    </div>
                      
               </form>
               <!-- Remind Passowrd -->
              
           
             </div>
-                
-                
-                
-                
-                
-                
-              
-                    
-                   
             
                 </div>
                 
             </div>
                  
-            
-                 
-             
-            
-            
           
             
-            
-            
-            
-            
         </body>
-    
+      <script>
+      function paymentInfo(){	
+      var code=sessionStorage.getItem('subs');  
+      var paymentId=sessionStorage.getItem('paymentId');
+      var amount=sessionStorage.getItem('amount');
+      document.getElementById("subscribeCode").innerHTML=code;
+	  document.getElementById("message").innerHTML=paymentId;
+	  document.getElementById("amount").innerHTML="INR."+amount;
+      }
+      </script>
+
+ 
 </html>

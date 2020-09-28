@@ -12,7 +12,7 @@
       <script src="js/oca.js"></script>
     
     </head>
-    <body onload="getCountries()">
+    <body onload="getCountries();buttonState()">
         <div class="wrapper fadeInDown">
             <div id="formContent">
               <!-- Tabs Titles -->
@@ -38,20 +38,19 @@
                 <span id="mobileMsg"></span>
                 <select class="select-country" id="country">
                     <option class="hidden"  selected disabled>Country</option>
+                    <option>India</option>
+                    <option>USA</option>
                 </select>
                 
-
-                <input type="button" class="fadeIn fourth" value="Register" onclick="register()">
-                  <br>
                 <span id="registerMsg"></span>
+                <br>
+                <input type="button" id="btn" class="fadeIn fourth" value="Register" onclick="register()">
+                  
+               
               
                 
               </form>
-              <!-- Remind Passowrd -->
-              <div id="formFooter">
-                <a class="underlineHover" href="#">Forgot Password?</a>
-              </div>
-          
+             
             </div>
           </div>
     </body>

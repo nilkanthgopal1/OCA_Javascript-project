@@ -29,13 +29,13 @@
                 <h2>National Oil Corporation</h2>
 				<ul>
                    <!--  <li id="subscribeCode"></li> -->
-                    <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
-                    <li><a class="underlineHover" href="javascript:updateprofilePage()">Update Profile</a></li>
+                    <li><a class="underlineHover" href="javascript:userprofilePage()">Profil de l'utilisateur</a></li>
+                    <li><a class="underlineHover" href="javascript:updateprofilePage()">Mettre à jour le profil</a></li>
 					<!-- <li><a class="underlineHover" href="javascript:saPage()">Sentiment Analysis</a></li> -->
-                    <li><a class="underlineHover" href="javascript:changePwdPage()">Change Password</a></li>
+                    <li><a class="underlineHover" href="javascript:changePwdPage()">Changer le mot de passe</a></li>
 					<!-- <li><a class="underlineHover" href="javascript:planusage()">Plans Usage</a></li>
 					<li><a class="underlineHover" href="javascript:planspricePage()">Plans & Pricing</a></li>
-                     --><li><a href="/logout">Logout</a></li>
+                     --><li><a href="/logout">Se déconnecter</a></li>
                 </ul>
                 
             </div>
@@ -45,9 +45,9 @@
 				
                 <div class="info">
 					<div style="margin-left: 65px;">
-                    <h4>Monthly Submission for PERENCO</h4>
+                    <h4>Soumission mensuelle pour PERENCO</h4>
                     <br><br>
-                    <h5>Choose File Type: </h5>
+                    <h5>Choisissez le type de fichier: </h5>
                     <div>
                       <input type="radio" name="select" value="Opex / Capex"> Opex / Capex
                       <br>
@@ -57,11 +57,11 @@
                     </div>
                     <div>
                     <select id="monthYear">
-                     <option class="hidden"  selected disabled>Month Year</option>
-                     <option>September 2020</option>
-                     <option>October 2020</option>
-                     <option>November 2020</option>
-                     <option>December 2020</option>
+                     <option class="hidden"  selected disabled>Mois année</option>
+                     <option>septembre 2020</option>
+                     <option>octobre 2020</option>
+                     <option>novembre 2020</option>
+                     <option>décembre 2020</option>
                     </select>
                     </div>
                     </div>
@@ -96,7 +96,7 @@
 						
                     </div>   
 	 -->				
-					<div style="width: 425px;
+					<div style="width: auto;
                                 height: 180px;
                                 
                                  
@@ -105,21 +105,19 @@
 						
 						<form method=POST id="uploadForm" enctype=multipart/form-data style="margin-left: 65px; margin-top:100px;">
                         <div id="file_upload">
-                          <label for="myfile">Data File Upload (Excel):</label>
+                          <label for="myfile">Téléchargement de fichier de données (Excel):</label>
 							<div class="row"><input type=file name=file /> 
-							<button>Upload</button>
+							<input type="submit" value="Télécharger">
                            </div>                        
                         </div>
-                        
-                        <hr>
-                    
+   
 						</form>
-			
+			             <hr>
 						<form method=POST id="uploadForm" enctype=multipart/form-data style="margin-left: 65px;">
                         <div id="file_upload">
-                          <label for="myfile">Signed Copy File Upload (PDF):</label>
+                          <label for="myfile">Téléchargement du fichier de copie signée (PDF):</label>
 							<div class="row"><input type=file name=file /> 
-                           <button>Upload</button></div>                     
+                          <input type="submit" value="Télécharger"></div>                     
                         </div>
                         
                         

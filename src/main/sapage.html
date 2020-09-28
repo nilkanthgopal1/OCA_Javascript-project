@@ -1,0 +1,314 @@
+<html>
+
+    <head>
+    
+        <title>SAPage</title>
+        
+         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+     
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <link rel="stylesheet" href="static/css/sapage.css">
+                
+        <link rel="stylesheet" href="static/css/bootstrap.css">
+        
+      <script src="static/js/jquery-3.5.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      <script src="static/js/oca.js"></script>
+    
+      
+    
+    </head>    
+    <body onload="SAPage()">
+    
+        <div class="wrapper">
+            <div class="sidebar">
+            
+                <h2>Online Comment Analyzer</h2>
+                <ul>
+                   <!--  <li id="subscribeCode"></li> -->
+                    <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
+                    <li><a class="underlineHover" href="javascript:updateprofilePage()">Update Profile</a></li>
+					<li><a class="underlineHover" href="javascript:saPage()">Sentiment Analysis</a></li>
+                   <li><a class="underlineHover" href="javascript:changePwdPage()">Change Password</a></li>
+                   <li><a class="underlineHover" href="javascript:planusage()">Plans Usage</a></li>
+                   <li><a class="underlineHover" href="javascript:planspricePage()">Plans & Pricing</a></li>
+                    <li><a href="#"></a>Logout</li>
+                
+                </ul>
+                
+            </div>
+             
+            <div class="main_content">
+               
+                
+<div class="header" style="text-align: right;"><label for="subscriber_code" style="text-align: right;" >Subscriber Code: <span id="subscribeCode"></span></label>
+</div>                
+                
+                
+                <div class="info">
+                    <p>Sentiment Analysis</p>
+                    
+                    <div style="width: 400px; 
+                                height: 180px; 
+                                
+                                display: inline-block;
+                                position: relative;">
+                        
+                   <form>
+                       
+                        <div class="form-group">
+                
+                          <textarea class="form-control rounded-0" id="comment" name="comment" rows="7" cols="55"></textarea>
+                        </div>
+                        
+              
+                    </form>
+                    
+                     <!-- code to add subscriber-code  -->   
+                       <div>
+                        
+                        <!-- <input type="text" id="subscribeCode" name="subscribeCode"/> -->
+                       </div>
+                      
+                                         
+                        
+                        
+<div class="row">
+        
+      
+            <input type="submit" id="btnSubmit" class="upload_button" value="Submit" onclick="dashBoard()">
+            
+			 <input type="submit" class="upload_button" value="Reset" onclick="reset()">
+           
+		 
+           
+     
+</div>
+                    <div>
+                        <br><span id="commentResponse"></span></br>
+						<span id="src_lang"></span></br>
+						<span id="trs_text"></span></br>
+                        
+                      </div> 
+                        
+                  
+                        
+                    </div>
+                    
+                    
+                    
+                    <div style="width: 400px;
+                                height: 180px;
+                                top:-200px;
+                                margin-left: 550px;
+                                border: solid 1px #ccc; 
+                                display: inline-block;
+                                position: relative;">
+
+                     <form action="/action_page.html" style="width: 400px; height: 150px; margin-left: 80px; margin-top: 80;">
+                        <div id="file_upload">
+                         <label for="myfile">Select a file:</label>
+                         <input type="file" id="myfile" name="myfile"><br><br>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                        <div class="row">
+                         <div class="spinner-border d-none" id="spinner" style="width: 3rem; height: 3rem;margin-left: 80px; margin-top:-50;" role="status">
+                             <span class="sr-only">Loading...</span>
+                        </div>
+                        </div>
+                        <div class="row d-none" id="spinner_message">
+                           <strong>Please wait while file is processing....</strong>
+                        </div>
+                        </div>
+                        </form>
+                        
+                      
+                                                       
+                        <div class="row">
+                        
+                         <input type="submit" id="btnUpload" class="upload_button" value="Upload" onclick="uploadFile()" style=" margin-top: -40; margin-left: 40px;">
+                         <input type="submit" id="btnDownload" class="upload_button" value="Download" onclick="downloadFile()" style=" margin-top: -75; margin-left: 250px;">
+                        </div>
+                        
+                        <div style="margin-left: 20px;">
+							<br>
+							<span id="msg"></span></br>
+							<span id="filename"></span></br>
+						</div>
+                        </div>
+                    </div>
+                    
+                  
+                </div>
+                
+                </div>
+        
+            </div>
+    
+    
+    
+    
+    
+    <script>
+    function SAPage()
+    {
+    	var code=sessionStorage.getItem('subs');
+       	document.getElementById("subscribeCode").innerHTML=code;
+    }
+    
+    
+    function dashBoard()
+    {
+    	var btn = document.getElementById('btnSubmit');
+   	    btn.disabled = true;
+   	    btn.style.backgroundColor="#39ace7";
+   	    
+        var message=document.getElementById("comment").value;
+        var subscriptioncode=document.getElementById("subscribeCode").textContent;
+        
+        
+    	const data={review:message};
+    	const jsonData=JSON.stringify(data);
+    	alert(jsonData);
+    	var req=new XMLHttpRequest();
+    	req.open("POST", "/posresult", "true");
+    	req.setRequestHeader("Content-type","application/json");
+    	req.setRequestHeader("subscriber_code",subscriptioncode);
+    	req.send(jsonData);
+    	 req.onreadystatechange=function()
+    	  {
+    		if(req.readyState==4 && req.status==200)
+    		{
+    		  
+    		  var jsonResponse = JSON.parse(req.responseText);
+    		  document.getElementById("commentResponse").innerHTML="<b>Comment Sentiment- </b>"+jsonResponse["data"];
+			  document.getElementById("src_lang").innerHTML="<b>Source language- </b>"+jsonResponse["data"];
+			  document.getElementById("trs_text").innerHTML="<b>Translated comment- </b>"+jsonData;
+    		}
+    	  }
+    	
+    }
+        
+    
+    
+    $(document).ready(function (e) {
+		$('#btnUpload').on('click', function () {
+			
+			event.preventDefault();
+			var file_upload=document.getElementById('file_upload');
+			var spinner=document.getElementById('spinner');
+			var spinner_messager=document.getElementById('spinner_message');
+			
+			file_upload.classList.add('d-none');
+			spinner.classList.remove('d-none');
+			spinner_message.classList.remove('d-none');
+			
+			var btn = document.getElementById('btnUpload');
+            btn.disabled = true;
+			btn.style.backgroundColor="#39ace7";
+			
+			var downbtn = document.getElementById('btnDownload');
+            downbtn.disabled = true;
+			btn.style.backgroundColor="#39ace7";
+			
+			var formData = new FormData(uploadForm);
+			var uri = '/upload';
+			
+			$.ajax({
+				type : 'POST',
+				url : uri,
+				data : formData,
+				processData : false,
+				contentType : false,
+				success : function(response) {
+					
+					file_upload.classList.remove('d-none');
+					spinner.classList.add('d-none');
+					spinner_message.classList.add('d-none');
+					
+					alert(response);
+					for(x in response){
+						if(x == "msg")
+						{
+							message=response[x];
+						}
+						if(x == "file")
+						{
+							file=response[x];
+						}							
+					}
+					
+					document.getElementById("msg").innerHTML=message;
+					document.getElementById("filename").innerHTML="<b>Download File - </b>"+file;
+					
+					var btn = document.getElementById('btnUpload');
+                    btn.disabled = false;
+					
+					var downbtn = document.getElementById('btnDownload');
+                    downbtn.disabled = false;
+				}
+			});
+			
+		});
+	})
+    
+    function downloadFile()
+    {
+    	var btn = document.getElementById('btnDownload');
+   	    btn.disabled = true;
+      	 var req=new XMLHttpRequest();
+    	 req.open("GET", '/downloadFile');
+    	 req.send();
+    	 
+    	 req.onreadystatechange=function()
+    	  {
+    		if(req.readyState==4 && req.status==200)
+    		{
+    			alert(req.responseText);
+    			 var filename = "";
+    			    var disposition = req.getResponseHeader('Content-Disposition');
+    			    alert(disposition);
+    			    if (disposition && disposition.indexOf('attachment') !== -1) {
+    			        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    			        var matches = filenameRegex.exec(disposition);
+    			        if (matches != null && matches[1]) { 
+    			          filename = matches[1].replace(/['"]/g, '');
+    			        }
+    			    }
+    			    
+    		  alert(filename);
+    	     /*  var element=document.createElement('a');
+    	      element.style.display='none';
+              alert("Above");
+    	      element.setAttribute('download',filename);
+    	      alert("Below");
+    	      document.body.appendChild(element);
+    	      element.click();
+    	      
+    	      document.body.removeChild(element); */
+    	      
+    		  
+    		    blob = new Blob([req.responseText], { type: 'text/csv' }),
+    		    anchor = document.createElement('a');
+
+    		anchor.download = filename;
+    		anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+    		anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+    		anchor.click();
+    		}
+    	  }
+       
+    }
+        </script>
+    
+    
+    
+    
+    
+    
+    </body>
+    
+</html>

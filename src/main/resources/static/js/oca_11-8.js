@@ -13,6 +13,11 @@ $(document).ready(function(){
   $("#confPassMsg").hide();
   $("#mobileMsg").hide();
 
+  document.getElementById("lastname").disabled = true;
+  document.getElementById("email").disabled = true;
+  document.getElementById("pass").disabled = true;
+  document.getElementById("confpass").disabled = true;
+  document.getElementById("mobile").disabled = true;
 
   var error_fname=false;
   var error_lname=false;
@@ -22,29 +27,49 @@ $(document).ready(function(){
   var error_mobile=false;
 
   $("#firstname").focusout(function(){
-	check_fname();
+	if(!check_fname())
+	{
+		document.getElementById("lastname").disabled = false;
+		document.getElementById("lastname").focus();
+	}
 	buttonState();
   });
 
   $("#lastname").focusout(function(){
-	check_lname();
+	if(!check_lname())
+	{
+		document.getElementById("email").disabled = false;
+		document.getElementById("email").focus();
+	}
 	buttonState();
   });
 
   $("#email").focusout(function(){
-	validateEmail();        
+	if(!validateEmail())
+	{
+		document.getElementById("pass").disabled = false;
+		document.getElementById("pass").focus();
+	}
 	buttonState();
   });
 	 
   // use focusout event on password
   $("#pass").focusout(function(){
-	validatePassword();
+	if(!validatePassword())
+	{
+		 document.getElementById("confpass").disabled = false;
+		 document.getElementById("confpass").focus();
+	}
 	buttonState();
   });
 
 
   $("#confpass").focusout(function(){
-	check_retype_password();
+	if(!check_retype_password())
+	{
+		document.getElementById("mobile").disabled = false;
+		document.getElementById("mobile").focus();
+	}
 	buttonState();
   });
 
@@ -71,14 +96,14 @@ function check_fname()
 	   
 	  $("#firstnameMsg").html("<p class='text-danger'>Please enter First name</p>");
 	  $("#firstnameMsg").hide();
-	  $("#firstname").css("border","2px solid red");
-	  var error_fname=true; 
+	  $("#firstname").css("border","2px solid deepskyblue");
+	  return error_fname=true; 
 	}
 	else{
 	  $("#firstnameMsg").html("<p class='text-danger'>Should contain only characters</p>");
 	  $("#firstnameMsg").show();
 	  $("#firstname").css("border","2px solid red");
-	  var error_fname=true;
+	  return error_fname=true;
 	}
   }
 
@@ -94,14 +119,14 @@ function check_fname()
 	else if(lname ===''){
 	  $("#lastnameMsg").html("<p class='text-danger'>Enter Last name</p>");
 	  $("#lastnameMsg").hide();
-	  $("#lastname").css("border","2px solid red");
-	  var error_lname=true;
+	  $("#lastname").css("border","2px solid deepskyblue");
+	  return error_lname=true;
 	}
 	else{
 	  $("#lastnameMsg").html("<p class='text-danger'>Should contain only characters</p>");
 	  $("#lastnameMsg").show();
 	  $("#lastname").css("border","2px solid red");
-	  var error_lname=true;
+	  return error_lname=true;
 	}
   }
 
@@ -117,14 +142,14 @@ function validateEmail(){
    else if(email === ''){
 	$("#emailMsg").html("<p class='text-danger'>Enter email</p>");
 	  $("#emailMsg").hide();
-	  $("#email").css("border","2px solid red");
-	  var error_email=true;
+	  $("#email").css("border","2px solid deepskyblue");
+	  return error_email=true;
    }
    else{
 	$("#emailMsg").html("<p class='text-danger'>Invalid email</p>");
 	  $("#emailMsg").show();
 	  $("#email").css("border","2px solid red");
-	  var error_email=true;
+	  return error_email=true;
    }
 
 }
@@ -141,8 +166,8 @@ function validatePassword(){
   else if(pass === ''){
 	  $("#passMsg").html("<p class='text-danger'>Enter Password</p>");
 	  $("#passMsg").hide();
-	  $("#pass").css("border","2px solid red");
-	  var error_password=true;
+	  $("#pass").css("border","2px solid deepskyblue");
+	  return error_password=true;
 	 // fetch_data="<p class='text-danger'>Enter Password</p>";
 	  
   }
@@ -150,7 +175,7 @@ function validatePassword(){
 	$("#passMsg").html("<p class='text-danger'>Should contain atleast 1 Uppercase,1 special charcter and number</p>");
 	  $("#passMsg").show();
 	  $("#pass").css("border","2px solid red");
-	  var error_password=true;
+	  return error_password=true;
 	  //fetch_data="<p class='text-danger'>Should contain atleast 1 Uppercase,1 special character and number</p>";
   }
 
@@ -161,19 +186,20 @@ function check_retype_password()
   {
 	var password=$("#pass").val();
 	var  retype_password=$("#confpass").val();
-	if(password !== retype_password)
-	{
-	  $("#confPassMsg").html("<p class='text-danger'>Passwords did not match</p>");
-	  $("#confPassMsg").show();
-	  $("#confpass").css("border","2px solid red");
-	  var error_repassword=true;
-	}
+	
 
-	else if(retype_password === ''){
+	 if(retype_password === ''){
 	  $("#confPassMsg").html("<p class='text-danger'>Enter password</p>");
 	  $("#confPassMsg").hide();
-	  $("#confpass").css("border","2px solid red");
-	  var error_repassword=true;
+	  $("#confpass").css("border","2px solid deepskyblue");
+	  return error_repassword=true;
+	}
+	else if(password !== retype_password)
+	{
+		  $("#confPassMsg").html("<p class='text-danger'>Passwords did not match</p>");
+		  $("#confPassMsg").show();
+		  $("#confpass").css("border","2px solid red");
+		  return error_repassword=true;
 	}
 	else{
 	  $("#confPassMsg").hide();
@@ -196,26 +222,26 @@ function validateMobile(){
   {
 	$("#mobileMsg").html("<p class='text-danger'>Enter mobile</p>");
 	  $("#mobileMsg").hide();
-	  $("#mobile").css("border","2px solid red");
-	  var error_mobile=true;
+	  $("#mobile").css("border","2px solid deepskyblue");
+	  return error_mobile=true;
   }
   else{
 	$("#mobileMsg").html("<p class='text-danger'>Invalid mobile</p>");
 	  $("#mobileMsg").show();
 	  $("#mobile").css("border","2px solid red");
-	  var error_mobile=true;
+	  return error_mobile=true;
   }
 }
-function buttonState(){
-  $("input[type=submit]").attr("disabled", "disabled");
-  $('input').change(function(){
-	  //Validate your form here, example:
-	  var validated = false;
-	  if(validateEmail() && validatePassword()) validated = true;
 
-	  //If form is validated enable form
-	  if(validated) $("input[type=submit]").removeAttr("disabled");                             
-});
+function buttonState(){
+	var btn = document.getElementById('btn');
+	btn.disabled = true;
+	if(!check_fname()&& !check_lname()&& !validateEmail()&& !validatePassword()&& !check_retype_password() && !validateMobile())
+	{
+		var btn = document.getElementById('btn');
+		btn.disabled = false;
+	}
+  
 }
   // if(validateEmail() && validatePassword()){
   //   // if the both email and password are validate
@@ -228,7 +254,6 @@ function buttonState(){
   // }
 
 
-  /*function for Country,State,City */
   function getCountries()
 {
 	var req= new XMLHttpRequest();
@@ -256,7 +281,6 @@ function buttonState(){
 }
 
  
-  /*Function for registration api call*/
   function register()
   {
 	var btn = document.getElementById('btn');
@@ -271,7 +295,7 @@ function buttonState(){
     var country=document.getElementById("country").value;
 
     var req=new XMLHttpRequest();
-    req.open("POST", "/signup", "true");
+    req.open("POST", "/register", "true");
     var student={firstname:firstname, lastname:lastname,pass:pass,confpass:confpass,email:email,mobile:mobile,country:country};
 
     var stujson=JSON.stringify(student);
@@ -296,11 +320,12 @@ function buttonState(){
     }
   }
 
-/*function for login api call*/
+
 
 function login()
 {
-  
+  var btn = document.getElementById('btn');
+  btn.disabled = true;
   var email=document.getElementById("email").value;
   var password=document.getElementById("password").value;
   var message='';
@@ -353,44 +378,10 @@ function login()
 
 function redirectRegisterPage()
 {
-	 window.location="/signup";
+	 window.location="/";
 }
 
-function forgotPassword()
-{
-	 window.location="/forgotpassword";
-}
 
-/*Function to call forgotpassword API*/
-function forgotPwdApiCall()
-{
-	 var email=document.getElementById("email").value;
-	 alert(email);
-	 
-	 var req=new XMLHttpRequest();
-	 req.open("POST", "/forgotpassword?email="+email, "true");
-	 
-	 req.setRequestHeader("Content-type","application/json");
-	  
-	 req.send();
-	  
-	 req.onreadystatechange=function()
-	  {
-		if(req.readyState==4 && req.status==200)
-		{
-			var jsonResponse=req.responseText;
-			var obj= JSON.parse(req.responseText);
-			for(x in obj){
-				if(x == "msg")
-					{
-					message=obj[x];
-					}
-			    }
-			
-			document.getElementById("forgotPwdMsg").innerHTML=message;
-		}
-	  }	
-}
 
 function chgPass() 
 {	
@@ -443,9 +434,9 @@ function userprofilePage()
 
 function saPage()
 {
+
 	window.location="/reviewform"
 }
-
 function updateprofilePage() 
 {
 
@@ -464,9 +455,9 @@ function planspricePage()
 	window.location="/plansAndpricing";
 }
 
+/*Customer Profile function*/
 function customerProfile()
 {
-	alert("in cust profile")
 	 var firstname='';
 	 var lastname='';
 	 var emailId='';
@@ -550,20 +541,20 @@ function customerProfile()
 			sessionStorage.setItem('last_name',lastname);
 			sessionStorage.setItem('contact',contact);
 			
+			
   	     }
 	  }
  }
  
  function profileupdate()
 {	
-	//alert("In update")
 	 
 	 var code=sessionStorage.getItem('subs');
 	 var email=sessionStorage.getItem('emailId');
 	
-    document.getElementById("subscribeCode").innerHTML=code;
+     document.getElementById("subscribeCode").innerHTML=code;
 	
-    var req=new XMLHttpRequest();
+     var req=new XMLHttpRequest();
 	 req.open("GET", "/customerprofile?email="+email, "true");
 	 
 	 req.setRequestHeader("Content-type","application/json");
@@ -636,7 +627,7 @@ function customerProfile()
 	 btn.style.backgroundColor="#39ace7";
 	 var code=sessionStorage.getItem('subs');
 	 document.getElementById("subscribeCode").innerHTML=code;
-	 
+	
 	//alert(code);
 	 var firstname=document.getElementById("firstname").value;
 	 var lastname=document.getElementById("lastname").value;
@@ -653,7 +644,7 @@ function customerProfile()
 	 var student={first_name:firstname, last_name:lastname,email_id:email,contact_no:mobile,country:country};
 
 	 var stujson=JSON.stringify(student);
-	 
+	 //print(stujson);
 	 req.send(stujson);
 	 req.onreadystatechange=function()
 	  {
@@ -747,16 +738,13 @@ function planUsage()
 			 
 			 }
 
-			document.getElementById("my_td").rows[0].cells.namedItem("plan_start_date").style.color="blue";
+			
 			document.getElementById("my_td").rows[0].cells.namedItem("plan_start_date").innerHTML=plan_start_date;
-			document.getElementById("my_td").rows[1].cells.namedItem("plan_end_date").style.color="blue";
 			document.getElementById("my_td").rows[1].cells.namedItem("plan_end_date").innerHTML=plan_end_date;
-			document.getElementById("my_td").rows[2].cells.namedItem("used_queries_count").style.color="blue";
 			document.getElementById("my_td").rows[2].cells.namedItem("used_queries_count").innerHTML=used_queries_count;
-			document.getElementById("my_td").rows[3].cells.namedItem("leftover_queries_count").style.color="blue";
 			document.getElementById("my_td").rows[3].cells.namedItem("leftover_queries_count").innerHTML=leftover_queries_count;
 			
-		/*	var table=document.getElementById('mytable');
+			/*var table=document.getElementById('mytable');
 			  
 			   for(i in obj)
 				{
@@ -814,6 +802,7 @@ function planUsage()
 			
 		}
 	  }
+	  
 }
 
 function plansAndpricing()
@@ -928,7 +917,6 @@ function plansAndpricing()
 	  
 }
 
-
 function confirmPaymentPage()
 {
   window.location.replace("/confirmPayment");
@@ -982,45 +970,27 @@ function reset(){
     }
 
 
-/*function for reset button*/
-function reset(){
-    var resetButton = document.getElementById("comment");
-    var cmntResponse=document.getElementById("commentResponse");
-    var srLang=document.getElementById("src_lang");
-    var trsText=document.getElementById("trs_text");
-        if(resetButton){
-        resetButton.value= "";
-        cmntResponse.value="";
-        srLang.value="";
-        trsText.value="";
-          document.getElementById("commentResponse").innerHTML="";
-		  document.getElementById("src_lang").innerHTML="";
-		  document.getElementById("trs_text").innerHTML="";
-        }
-    }
-
-/*Function to call Change Password Page*/
 function changePwdPage()
 {
 	 window.location="/changePassword";
 }
 
 
-/*Function to call changepass API*/
+
 function changePass() 
 {	
-  var btn = document.getElementById('btn');
+	var btn = document.getElementById('btn');
 	btn.disabled = true;
 	btn.style.backgroundColor="#39ace7";
-	 var code=sessionStorage.getItem('subs');
-	 var email=sessionStorage.getItem('emailId');
-	
+	var code=sessionStorage.getItem('subs');
+	 
+	 
     document.getElementById("subscribeCode").innerHTML=code;
     var oldPassword=document.getElementById("oldpassword").value;
     var newPassword=document.getElementById("pass").value;
     var confirmPassword=document.getElementById("confpass").value;
 	
-    var student={email:email,password:oldPassword, new_pass:newPassword};
+    var student={old_pass:oldPassword, new_pass:newPassword};
 
 	var stujson=JSON.stringify(student);
 	 
@@ -1070,3 +1040,46 @@ function changePass()
 			
 	  }
  }
+function forgotPassword()
+{
+	 window.location="/forgotPasswordPage";
+}
+
+
+function forgotPwdApiCall()
+{
+	 var btn = document.getElementById('btn');
+	 btn.disabled = true;
+	 btn.style.backgroundColor="#39ace7";
+	 var email=document.getElementById("email").value;
+	 
+	 var req=new XMLHttpRequest();
+	 req.open("POST", "/forgotpassword?email="+email, "true");
+	 
+	 req.setRequestHeader("Content-type","application/json");
+	  
+	 req.send();
+	  
+	 req.onreadystatechange=function()
+	  {
+		if(req.readyState==4 && req.status==200)
+		{
+			var jsonResponse=req.responseText;
+			var obj= JSON.parse(req.responseText);
+			for(x in obj){
+				if(x == "msg")
+					{
+					message=obj[x];
+					}
+			    }
+			
+			document.getElementById("forgotPwdMsg").innerHTML=message;
+		}
+	  }
+	
+}	
+
+function paymentPage()
+{
+	window.location="/paymentPage";
+}

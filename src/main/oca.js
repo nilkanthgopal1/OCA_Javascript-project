@@ -1002,7 +1002,7 @@ function reset(){
 /*Function to call Change Password Page*/
 function changePwdPage()
 {
-	 window.location="/changePassword";
+	 window.location="/changepass";
 }
 
 

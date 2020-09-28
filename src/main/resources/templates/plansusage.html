@@ -2,7 +2,7 @@
 
     <head>
     
-        <title>User Profile</title>
+        <title>Plan Usage Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,28 +10,30 @@
         <link rel="stylesheet" href="css/profileupdate.css">
                 
         <link rel="stylesheet" href="css/bootstrap.css">
+		      
         
       <script src="js/jquery-3.5.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="js/oca.js"></script>
+
     
         
     
     </head>
 	
-	  <body onload="customerProfile()">
+ <body onload="planUsage()">
          
-             <div class="wrapper">
+    <div class="wrapper">
             
                  <div class="sidebar">
             
                 <h2>Online Comment Analyzer</h2>
                 <ul>
-				    <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
+                    <li><a class="underlineHover" href="javascript:userprofilePage()">User Profile</a></li>
 					<li><a class="underlineHover" href="javascript:updateprofilePage()">Update Profile</a></li>
                     <li><a class="underlineHover" href="javascript:saPage()">Sentiment Analysis</a></li>
 					<li><a class="underlineHover" href="javascript:changePwdPage()">Change Password</a></li>
-                    <li><a class="underlineHover" href="javascript:planusage()">Plans Usage</a></li>
+					<li><a class="underlineHover" href="javascript:planusage()">Plans Usage</a></li>
                     <li><a class="underlineHover" href="javascript:planspricePage()">Plans & Pricing</a></li>
                     <li><a href="/logout">Logout</a></li>
                 
@@ -39,7 +41,7 @@
                 
                  </div>
             
-            <div class="main_content">
+        <div class="main_content">
                 
              <div class="header" style="text-align: right;"><label for="subscriber_code" style="text-align: right;" >Subscriber Code: <span id="subscribeCode"></span></label>
              </div>
@@ -49,63 +51,70 @@
 <!------------------------------------------------Form coding--------------------------------------------------------------------->
                 
                 
-                <div id="formContent">
+            <div id="formContent">
               <!-- Tabs Titles -->
           
               <!-- Icon image -->
-              <div class="fadeIn first">
+              <!--<div class="fadeIn first">
                 <img src="image/login.svg" id="icon" alt="User Icon" />
-              </div>
+              </div>-->
           
               <!-- Registration Form -->
-              <form>
+               <form>
 			  
-			   <table class="table table-striped w-auto">
+			     <table class="table table-striped w-auto">
 
-                    <div class="table-responsive text-nowrap">
-                        <!--Table-->
-                        <table class="table table-striped">
+                      <div class="table-responsive text-nowrap">
+                          <!--Table-->
+                          <table class="table table-striped" id= "my_td"><h5>Current Plan Details</h5>
                 
-                          <!--Table head-->
-                          <thead>
-                            <tr>
+                           
+                              <tr>
+                                <th scope="row">Plan Activated On :</th>
+                                <td id="plan_start_date"></td>
+                              
+                              </tr>
+                              <tr>
+                              <th scope="row">Plan Ends On :</th>
+                              <td id="plan_end_date"></td>
                               
                             </tr>
+                            <tr>
+                              <th scope="row">Queries Used :</th>
+                              <td id="used_queries_count"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Queries Remaining :</th>
+                              <td id="leftover_queries_count"></td>                              
+                            </tr>
+                         
+                         </table>
+					  </div>
+                        <br><br>
+                         <!--  <table class="table table-striped"><h5 style=" margin-left: 530px;">Upgrade Your Plan</h5>
+                
+                          Table head
+                           <thead>
+                             <tr>
+                              <th></th>
+                              <th style=" text-align: center;">Plan Description</th>
+                          
+                              <th style=" text-align: center;"> No. Of Queries</th>
+                              <th style=" text-align: center;"> Plan Validity Days</th>
+                              <th style=" text-align: center;"> Plan Value</th>
+                             </tr>
                           </thead>
-                          <!--Table head-->
+                          Table head
                 
-                          <!--Table body-->
-                          <tbody>
-                           
-                           
-                            <tr>
-                              <th scope="row">First Name :</th>
-                              <td id="firstName"></td>
-                              
-                            </tr>
-                            <tr>
-                              <th scope="row">Last Name :</th>
-                              <td id="lastName"></td>
-                              
-                            </tr>
-                            <tr>
-                              <th scope="row">Email :</th>
-                              <td id="email"></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Contact :</th>
-                              <td id="contact"></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Country :</th>
-                              <td id="country"></td>                              
-                            </tr>
+                          Table body
+                          <tbody id="mytable">
+                       
                           </tbody>
-                          <!--Table body-->
-                
                 
                         </table>
-                        <!--Table-->
+                 
+                        Table
+                      --> 
                       </div>
                      
               </form>
@@ -113,9 +122,7 @@
              
           
             </div>
-                
-                
-                
+              
                 
                 
                 
@@ -123,9 +130,9 @@
                     
                    
             
-                </div>
+        </div>
                 
-            </div>
+    </div>
                  
             
                  
@@ -138,6 +145,6 @@
             
             
             
-        </body>
+ </body>
     
 </html>

@@ -1,6 +1,19 @@
 package com.example.Registration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Timer;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -18,6 +33,13 @@ public class Homecontroller {
 	private StudentRepo repo;
 	
 	@RequestMapping("/")
+	public String welcome()
+	{
+		System.out.println("In welcome page API");
+		return "welcome";
+	}
+	
+	@RequestMapping("/signup")
 	public String registration()
 	{
 		System.out.println("In registration page API");
@@ -38,7 +60,7 @@ public class Homecontroller {
 		return "userprofile";
 	}	*/
 	
-	@RequestMapping("/forgotPwdPage")
+	@RequestMapping("/forgotPasswordPage")
 	public String forgotPwdPage()
 	{
 		System.out.println("In forgotPwdPage API");
@@ -52,28 +74,62 @@ public class Homecontroller {
 		return "updateprofilepage";
 	}	
 	
-	@RequestMapping("/sapage")
+	@RequestMapping("/reviewform")
 	public String sapage()
 	{
 		System.out.println("In sapage API");
-		return "sapage";
+		return "sapage_french";
 	}	
 	
-	@RequestMapping("/userprofilePage")
+	@RequestMapping("/userprofile")
 	public String userprofilePage()
 	{
 		System.out.println("In userprofilePage API");
 		return "userprofile";
 	}	
 	
-	@RequestMapping("/planUsagePage")
+	@RequestMapping("/planusage")
 	public String planUsagePage()
 	{
 		System.out.println("In planUsagePage API");
-		return "planUsage";
+		return "plansusage";
 	}
 	
-	@PostMapping("/register")
+	@RequestMapping("/plansAndpricing")
+	public String plansAndpricingPage()
+	{
+		System.out.println("In plansAndpricingPage API");
+		return "plansAndpricing";
+	}
+	
+	@RequestMapping("/changePassword")
+	public String changePassword()
+	{
+		System.out.println("In changePasswordPage API");
+		return "changePassword";
+	}
+	
+	@RequestMapping("/confirmPayment")
+	public String confirmPayment()
+	{
+		System.out.println("In confirmPayment");
+		return "confirmPayment";
+	}
+	
+	@RequestMapping("/paymentPage")
+	public String paymentPage()
+	{
+		System.out.println("In paymentPage API");
+		return "paymentPage";
+	}
+	
+	@RequestMapping("/successPage")
+	public String successPage()
+	{
+		System.out.println("In successPage API");
+		return "successPage";
+	}
+	@PostMapping("/signup")
 	@ResponseBody
 	public String register(@RequestBody Student stu)
 	{
@@ -83,7 +139,7 @@ public class Homecontroller {
 		return "{\"msg\":\"Registration Successfull\"}";
 	}
 	
-	@PostMapping("/loginCheck")
+	@PostMapping("/login")
 	@ResponseBody
 	public String loginPage(@RequestBody Student stu)
 	{
@@ -139,5 +195,162 @@ public class Homecontroller {
 		long mobile=stu.getMobile();
 		String pass=stu.getPass();
 		return "{\"msg\": \"record updated\"}";
+	}
+	
+	@GetMapping("/userplans")
+	@ResponseBody
+	public String userplans()
+	{
+		
+		System.out.println("In userplans API");
+		
+		
+		return"{\"available_plans\":[{\"plan_description\": \"monthly plan\",\"plan_expiry_date\": \"06/01/21\",\"plan_id\": 101,\"plan_launch_date\": \"06/01/20\",\"plan_max_queries\": 1000,\"plan_validity_days\": 30,\"plan_value\": 399},{\"plan_description\": \"3-months plan\",\"plan_expiry_date\": \"06/01/21\",\"plan_id\": 102,\"plan_launch_date\":\"06/01/20\",\"plan_max_queries\": 5000,\"plan_validity_days\": 90,\"plan_value\": 899}],\"current_plan\":{\"plan_start_date\": \"06/30/20\", \"plan_end_date\": \"07/30/20\", \"used_queries_count\": 0, \"leftover_queries_count\": 1000}}";
+	}
+	
+	@GetMapping("/getplans")
+	@ResponseBody
+	public String getplans()
+	{
+		
+		System.out.println("In getplans API");
+		
+		
+		
+		return"{\"plans\":[{\"plan_description\": \"monthly plan\",\"plan_expiry_date\": \"06/01/21\",\"plan_id\": 101,\"plan_launch_date\": \"06/01/20\",\"plan_max_queries\": 1000,\"plan_validity_days\": 30,\"plan_value\": 399},{\"plan_description\": \"3-months plan\",\"plan_expiry_date\": \"06/01/21\",\"plan_id\": 102,\"plan_launch_date\": \"06/01/20\",\"plan_max_queries\": 5000,\"plan_validity_days\": 90,\"plan_value\": 899}]}";
+   }
+	
+	
+	@PostMapping("/changepass")
+	@ResponseBody
+	public String changepass(@RequestBody Student stu)
+	{
+		//String mail=email;
+		System.out.println("In ChangePassword API");
+		System.out.println(stu.toString());
+		return"{\"msg\":\"Error\"} ";
+	}
+	
+	@PostMapping("/forgotpassword")
+	@ResponseBody
+	public String forgotpassword(@RequestParam(value="email") String email)
+	{
+		//String mail=email;
+		System.out.println("In forgotpassword API");
+		System.out.println(email);
+		
+		
+		return"{\"msg\":\"Email has been sent to update password\"} ";
+	}
+	
+	private static String UPLOAD_FOLDER = "E://upload_file//";
+	
+	@PostMapping("/upload")
+	@ResponseBody
+	public String fileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws InterruptedException {
+ 
+           	System.out.println("In upload API");	
+		try {
+			// read and write the file to the selected location-
+		
+			Thread.sleep(30000);
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
+			Files.write(path, bytes);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("File Uploaded sucessfully");
+		
+		return "File Uploaded sucessfully";
+	}
+
+
+	
+/*	@PostMapping("/upload")
+	@ResponseBody
+	public String upload()
+	{
+		//String mail=email;
+		System.out.println("In Upload API");
+		Runnable r= new Runnable() {
+			public void run() {
+				
+				 try {
+					   System.out.println("In sleep mode");
+			            // thread to sleep for 1000 milliseconds
+			            Thread.sleep(30000);
+			            System.out.println("Out of sleep mode");
+			         } catch (Exception e) {
+			            System.out.println(e);
+			         }
+			}
+		};
+		
+		Thread t=new Thread(r);
+		synchronized (t) {
+			t.start();
+		}
+		
+		
+		
+		Object lock=new Object();
+		Timer timer=new Timer();
+		TimerTask task=new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				synchronized (lock) {
+					try {
+						   System.out.println("In sleep mode");
+				            // thread to sleep for 1000 milliseconds
+				            Thread.sleep(30000);
+				            System.out.println("Out of sleep mode");
+				         } catch (Exception e) {
+				            System.out.println(e);
+				         }
+				}
+				
+				
+			}
+		};
+		timer.schedule(task, 1000, 10*1000);
+		synchronized (lock) {
+			lock.wait();
+		}
+		
+		
+		
+		return"Downloading";
+	}*/
+	
+	@GetMapping("/downloadFile")
+	public ResponseEntity<Object>  downloadFile() throws FileNotFoundException
+	{
+		String filename="E:\\downloadFileCSV.csv";
+		File file=new File(filename);
+		InputStreamResource resource=new InputStreamResource(new FileInputStream(file));
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("Content-Disposition",String.format("attachment;filename=\"%s\"",file.getName()));
+		
+		ResponseEntity<Object> responseEntity=ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")).body(resource);
+		return responseEntity;
+		
+	}
+	
+	
+	@PostMapping("/createOrder")
+	@ResponseBody
+	public String createOrder(@RequestBody Student stu)
+	{
+		//String mail=email;
+		System.out.println("In createOrder API");
+		int amount=stu.getPlanValue();
+		
+		return"{\"id\":\"order_Fa6sYZnJnPCKfy\",\"entity\":\"order\",\"amount\":\"" + amount + "\",\"amount_paid\":0,\"amount_due\":500,\"currency\":\"INR\",\"receipt\":\"receipt#1\",\"offer_id\":null,\"status\":\"created\",\"attempts\":0,\"notes\":[],\"created_at\":1596522805} ";
 	}
 }

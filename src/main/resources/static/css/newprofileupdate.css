@@ -6,11 +6,11 @@
     box-sizing: border-box;
     list-style: none;
     text-decoration: none;
-    font-family: 'Josefin Sans',sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body{
-    background: #F8F8FF;
+    background: #f3f5f9;
 }
 
 .wrapper{
@@ -78,102 +78,87 @@ body{
 }
 
 
-@import "compass/css3";
-
-$back-color: #F0F0F0;
-$green-border: #72B372;
-
-@mixin linear-gradient($top, $bottom) {
-  background: $top;
-  background: -webkit-linear-gradient($top, $bottom);
-	background: -moz-linear-gradient($top, $bottom);
-	background: -o-linear-gradient($top, $bottom);
-	background: linear-gradient($top, $bottom);
-}
-
-.main > div {
-    display: inline-block;
-    width: 49%;
-    margin-top: 10px;
-}
-
-.one{
-    .register{
-        border: none;
-        
-        h3{
-            border-bottom-color: #909090;
-        }
-    }
-}
-
-.update-profile{
-    width: 500px;
-    margin: 10px auto;
-    padding: 10px;
-    border: 7px solid $green-border;
-    border-radius: 10px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: #444;
-    background-color: $back-color;
-    box-shadow: 0 0 20px 0 #000000;
-    
-    h3{
-        margin: 0 15px 20px;
-        border-bottom: 2px solid $green-border;
-        padding: 5px 10px 5px 0;
-        font-size: 1.1em;
-    }
-    
-    div{
-        margin: 0 0 15px 0;
-        border: none;
-    }
-    
-    label{
-        display: inline-block;
-        width: 25%;
-        text-align: right;
-        margin: 10px;
-    }
-    
-    input[type=text]{
-        width: 65%;
-        font-family: "Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;
-        padding: 5px;
-        font-size: 0.9em;
-        border-radius: 5px;
-        background: rgba(0,0,0,0.07);
-        
-    }
-    input[type=text]:focus{
-        background: #FFFFFF;
-    }
-    }
-    .update-profile-button{
-        font-size: 1em;
-        border-radius: 8px;
-        padding: 10px;
-        border: 1px solid #59B969;
-        box-shadow: 0 1px 0 0 #60BD49 inset;
-        @include linear-gradient(#63E651,#42753E);
-        
-        &:hover{
-            @include linear-gradient(#51DB1C,#6BA061);
-        }
-    }
 
 
 
+/*----------------------- css for form ------------------------------------*/
 
 
-.wrapper2{
-  max-width: 500px;
-  width: 100%;
+
+#formContent {
+   max-width: 500px;
+   width: 100%;
+   margin: 20px auto;
+   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+   padding: 30px;
+   -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
   background: #fff;
-  margin: 20px auto;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
-  padding: 30px;
+  position: relative;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  
+}
+
+
+
+
+
+
+/* FORM TYPOGRAPHY*/
+/* Simple CSS3 Fade-in Animation */
+
+.underlineHover:after {
+  display: block;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 2px;
+  background-color: #56baed;
+  content: "";
+  transition: width 0.2s;
+}
+
+.underlineHover:hover {
+  color: #0d0d0d;
+}
+
+.underlineHover:hover:after{
+  width: 100%;
+}
+
+
+
+
+/* OTHERS */
+
+*:focus {
+    outline: none;
+} 
+
+#icon {
+  width:30%;
+}
+
+i.fa{
+  font-size: 25px;
+  position: absolute;
+  left: 380px;
+  top: 150px;
+}
+
+
+/*Wrapper2 Class*/
+.wrapper2{
+    max-width: 500px;
+   width: 100%;
+   margin: 20px auto;
+   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+   padding: 30px;
+   -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  position: relative;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
 }
 
 .wrapper2 .title{
@@ -199,7 +184,7 @@ $green-border: #72B372;
    width: 200px;
    color: #757575;
    margin-right: 10px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .wrapper2 .form .inputfield .input,
@@ -223,6 +208,7 @@ $green-border: #72B372;
   position: relative;
   width: 100%;
   height: 37px;
+  
 }
 
 .wrapper2 .form .inputfield .custom_select:before{
@@ -257,28 +243,38 @@ $green-border: #72B372;
 }
 
 .wrapper2 .form .inputfield p{
-   font-size: 14px;
+   font-size: 16px;
    color: #757575;
 }
 
 .wrapper2 .form .inputfield .btn-editprofile{
-  width: 100%;
-   padding: 8px 10px;
-  font-size: 15px; 
-  border: 0px;
-  background:  #0000CD;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 3px;
-  outline: none;
+   background-color: #56baed;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 15px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 10px 10px 20px 80px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .wrapper2 .form .inputfield .btn-editprofile:hover{
-  background: #000080;
+  background-color: #39ace7;
 }
 
 .wrapper2 .form .inputfield:last-child{
-  margin-bottom: 0;
+  margin-bottom: -10;
 }
 
 @media (max-width:420px) {
@@ -293,4 +289,63 @@ $green-border: #72B372;
     flex-direction: row;
   }
 }
+
+
+select {
+
+text-align: center;
+padding-right: 29px;
+
+}
+
+option {
+  text-align: center;
+  /* reset to left*/
+}
+
+
+
+/*--------------- css for dropdown item in centre align--------------------------*/
+a {
+  color: #92badd;
+  display:inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+
+select {
+  text-align: center;
+  text-align-last: center;
+}
+option {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

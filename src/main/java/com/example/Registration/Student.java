@@ -18,7 +18,14 @@ public class Student {
 	private String email;
 	private long mobile;
 	private String country;
+	private int planValue;
 	
+	public int getPlanValue() {
+		return planValue;
+	}
+	public void setPlanValue(int planValue) {
+		this.planValue = planValue;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
